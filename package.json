@@ -4,9 +4,14 @@
   "description": "Desafio Fullcycle de CI no git",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --coverage",
     "start": "node app.js"
   },
   "author": "Luciano Calsolari",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@types/jest": "^29.5.3",
+    "jest": "^29.6.2",
+    "sonar-scanner": "^3.1.0"
+  }
 }
