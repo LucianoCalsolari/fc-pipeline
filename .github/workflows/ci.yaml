@@ -8,28 +8,6 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-      - run: npm i
-      - run: npm ci
-      - run: npm install jest @types/jest sonar-scanner --only-dev
-      - run: npx jest
-      - run: npm start
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-
-name: Build
-
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - uses: sonarsource/sonarqube-scan-action@master
         env:
@@ -41,3 +19,8 @@ jobs:
       #   timeout-minutes: 5
       #   env:
       #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - run: npm i
+      - run: npm ci
+      - run: npm install jest @types/jest sonar-scanner --only-dev
+      - run: npx jest
+      - run: npm start
