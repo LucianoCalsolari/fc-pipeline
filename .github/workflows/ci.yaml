@@ -1,8 +1,9 @@
 name: ci-node-workflow
-on: [push]
+on: 
   push:
     branches:
-      - master
+      - main
+      - DFC-001
   pull_request:
     types: [opened, synchronize, reopened]
 jobs: 
