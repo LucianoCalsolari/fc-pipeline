@@ -1,0 +1,29 @@
+name: ci-node-workflow
+on: 
+  push:
+    branches:
+      - main
+      - DFC-001
+  pull_request:
+    types: [opened, synchronize, reopened]
+jobs: 
+  check-app:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+    
+      - run: npm i
+      - run: npm ci
+      - run: npm install jest @types/jest sonar-scanner --only-dev
+      - run: npx jest
+      - run: npm start
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
